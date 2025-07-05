@@ -1,7 +1,8 @@
-    import streamlit as st
-    import numpy as np
-    import pickle
-    import os
+import streamlit as st
+import numpy as np
+import pickle
+import os
+
 
     # 📦 Load the Trained Model
     with open('heart_disease_model.pkl', 'rb') as file:
