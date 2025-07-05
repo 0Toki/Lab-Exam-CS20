@@ -5,16 +5,16 @@ import os
 
 # 📦 Load the Trained Model
 with open('heart_disease_model.pkl', 'rb') as file:
-model = pickle.load(file)
+    model = pickle.load(file)
 
 # 📏 Load custom threshold if available
 default_threshold = 0.5
 threshold_path = "threshold.txt"
 if os.path.exists(threshold_path):
 with open(threshold_path, "r") as f:
-threshold = float(f.read().strip())
+    threshold = float(f.read().strip())
 else:
-threshold = default_threshold
+    threshold = default_threshold
 st.title("💓 Heart Disease Risk Prediction")
 
     # 🌟 User Input Form
