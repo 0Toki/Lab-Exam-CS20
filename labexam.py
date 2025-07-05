@@ -1,11 +1,15 @@
+# ===========================
+# 📚 Import Libraries
+# ===========================
 import streamlit as st
 import numpy as np
-import pickle
+import joblib
 import os
 
+# ===========================
 # 📦 Load the Trained Model
-with open('heart_disease_model.pkl', 'rb') as file:
-    model = pickle.load(file)
+# ===========================
+model = joblib.load('heart_disease_model.joblib')
 
 # 📏 Load custom threshold if available
 default_threshold = 0.5
@@ -16,6 +20,9 @@ if os.path.exists(threshold_path):
 else:
     threshold = default_threshold
 
+# ===========================
+# 🎯 Streamlit App
+# ===========================
 st.title("💓 Heart Disease Risk Prediction")
 
 # 🌟 User Input Form
@@ -43,16 +50,20 @@ physical_health = st.number_input("Physical Health (Days Unwell)", min_value=0, 
 mental_health = st.number_input("Mental Health (Days Unwell)", min_value=0, max_value=30, value=0)
 sleep_time = st.number_input("Average Sleep Time (hours)", min_value=1, max_value=24, value=7)
 
+# ===========================
 # ✅ Mapping Dictionaries
+# ===========================
 sex_map = {"Female": 0, "Male": 1}
-gen_health_map = {"Excellent": 4, "Fair": 1, "Good": 2, "Poor": 3, "Very good": 3}  # Fix if needed
+gen_health_map = {"Excellent": 4, "Fair": 1, "Good": 2, "Poor": 3, "Very good": 3}
 age_map = {"18-24": 0, "25-29": 1, "30-34": 2, "35-39": 3, "40-44": 4, "45-49": 5,
            "50-54": 6, "55-59": 7, "60-64": 8, "65-69": 9, "70-74": 10, "75-79": 11, "80 or older": 12}
 binary_map = {"No": 0, "Yes": 1, "no": 0, "yes": 1}
 diabetic_map = {"No": 0, "No, borderline diabetes": 1, "Yes": 2, "Yes (during pregnancy)": 3}
 race_map = {"American Indian/Alaskan Native": 0, "Asian": 1, "Black": 2, "Hispanic": 3, "Other": 4, "White": 5}
 
-# 📥 Prepare Input Vector (17 Features)
+# ===========================
+# 📥 Prepare Input Vector
+# ===========================
 input_data = np.array([[ 
     bmi,
     binary_map[smoking],
@@ -62,7 +73,7 @@ input_data = np.array([[
     mental_health,
     binary_map[diff_walking],
     sex_map[sex],
-    age_map[age_category] * 0.5,
+    age_map[age_category] * 0.5,  # You can adjust this if needed
     race_map[race],
     diabetic_map[diabetic],
     binary_map[physical_activity],
@@ -73,7 +84,9 @@ input_data = np.array([[
     binary_map[skin_cancer]
 ]])
 
+# ===========================
 # 🚀 Make Prediction
+# ===========================
 if st.button("Predict Heart Disease Risk"):
     prob = model.predict_proba(input_data)[0][1]
     prediction = int(prob >= threshold)
