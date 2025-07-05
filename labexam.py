@@ -74,15 +74,15 @@ binary_map[skin_cancer]
 
     # 🚀 Make Prediction
 if st.button("Predict Heart Disease Risk"):
-prob = model.predict_proba(input_data)[0][1]
-prediction = int(prob >= threshold)
-confidence = prob * 100 if prediction == 1 else (1 - prob) * 100
-
-if prediction == 1:
-st.error(f"⚠️ High Risk of Heart Disease!\n\n🧠 Confidence: {confidence:.2f}%")
-else:
-st.success(f"✅ Low Risk of Heart Disease.\n\n🧠 Confidence: {confidence:.2f}%")
-
-# Optional debugging output
-st.markdown(f"🔍 **Predicted Probability (Risk):** `{prob:.2%}`")
-st.markdown(f"🎯 **Using Threshold:** `{threshold}`")
+    prob = model.predict_proba(input_data)[0][1]
+    prediction = int(prob >= threshold)
+    confidence = prob * 100 if prediction == 1 else (1 - prob) * 100
+    
+    if prediction == 1:
+    st.error(f"⚠️ High Risk of Heart Disease!\n\n🧠 Confidence: {confidence:.2f}%")
+    else:
+    st.success(f"✅ Low Risk of Heart Disease.\n\n🧠 Confidence: {confidence:.2f}%")
+    
+    # Optional debugging output
+    st.markdown(f"🔍 **Predicted Probability (Risk):** `{prob:.2%}`")
+    st.markdown(f"🎯 **Using Threshold:** `{threshold}`")
