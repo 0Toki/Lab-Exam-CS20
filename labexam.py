@@ -3,9 +3,7 @@ import numpy as np
 import pickle
 import os
 
-
-    # 📦 Load the Trained Model
-    with open('heart_disease_model.pkl', 'rb') as file:
+with open('heart_disease_model.pkl', 'rb') as file:
         model = pickle.load(file)
 
     # 📏 Load custom threshold if available
